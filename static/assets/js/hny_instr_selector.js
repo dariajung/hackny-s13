@@ -13,30 +13,16 @@ function setInstr(){
          num = res.count;
          console.log(num, 'Number');
 
+         //chooses scale type
+         major = false;
          if(num%2==0){
             major = true;
-            wave = 3;
          }
-         else if(num<2){
-            major = false;
-            wave = 0;
-            setWaveType(0); //sine
-         }
-         else if(num<4){
-            major = false;
-            wave = 1;
-            setWaveType(1); //square
-         }
-         else if(num<6){
-            major = false;
-            wave = 2;
-            setWaveType(2); //sawtooth
-         }
-         else {
-            major = false;
-            wave = 3;
-            setWaveType(3); //triangle
-         }
+
+         //chooses wave type (sine, square, sawtooth, or triangle)
+         wave = num%4;
+         //setWaveType(num%4);
+        
          //console.log(wave, "wave");
       }
    });

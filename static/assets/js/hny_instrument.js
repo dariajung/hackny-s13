@@ -22,20 +22,23 @@ var masterVolume = myAudio.createGainNode();
 masterVolume.gain.value=1;
 masterVolume.connect(myAudio.destination);
 
-var osc = myAudio.createOscillator();
-var oscg = myAudio.createGainNode();
-var oscf = myAudio.createBiquadFilter();
 
-osc.type = 0; //default is a sine wave
-osc.connect(oscf);
-oscf.connect(oscg);
-oscg.connect(masterVolume);
 
 //plays a note until stopped or another note is played
 function play(freq, wave){
    if (freq != 0 && freq != osc.frequency.value){
       setPitch(freq);
       setWaveType(wave);
+
+      var osc = myAudio.createOscillator();
+      var oscg = myAudio.createGainNode();
+      var oscf = myAudio.createBiquadFilter();
+
+      osc.type = 0; //default is a sine wave
+      osc.connect(oscf);
+      oscf.connect(oscg);
+      oscg.connect(masterVolume);
+
       if (osc.playbackState == 0){
          osc.noteOn(0);
       }
@@ -44,8 +47,8 @@ function play(freq, wave){
 
 //stops the oscillator
 function stop(){
-   osc.noteOff(0);
-   osc = myAudio.createOscillator();
+   osc.noteOff(osc, 0);
+   //osc = myAudio.createOscillator();
 }
 
 //can be sine, square, sawtooth, or triangle
