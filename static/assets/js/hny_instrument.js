@@ -3,6 +3,7 @@
 //some code adapted from https://github.com/usdivad/midas/blob/master/audio.js by David Su
 
 var myAudio;
+var osc;
 
 try{
     myAudio = new webkitAudioContext();
@@ -18,11 +19,21 @@ catch(e){
     }
 }
 
+
+function makeOsc(){
 var masterVolume = myAudio.createGainNode();
 masterVolume.gain.value=1;
 masterVolume.connect(myAudio.destination);
 
+osc = myAudio.createOscillator();
+oscg = myAudio.createGainNode();
+oscf = myAudio.createBiquadFilter();
 
+osc.type = 0; //default is a sine wave
+osc.connect(oscf);
+oscf.connect(oscg);
+oscg.connect(masterVolume);
+}
 
 //plays a note until stopped or another note is played
 function play(freq, wave){
@@ -30,14 +41,7 @@ function play(freq, wave){
       setPitch(freq);
       setWaveType(wave);
 
-      var osc = myAudio.createOscillator();
-      var oscg = myAudio.createGainNode();
-      var oscf = myAudio.createBiquadFilter();
 
-      osc.type = 0; //default is a sine wave
-      osc.connect(oscf);
-      oscf.connect(oscg);
-      oscg.connect(masterVolume);
 
       if (osc.playbackState == 0){
          osc.noteOn(0);
@@ -47,8 +51,9 @@ function play(freq, wave){
 
 //stops the oscillator
 function stop(){
-   osc.noteOff(osc, 0);
-   //osc = myAudio.createOscillator();
+   //osc.noteOff(osc, 0);
+   osc.disconnect();
+   makeOsc();
 }
 
 //can be sine, square, sawtooth, or triangle

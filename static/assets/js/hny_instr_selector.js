@@ -22,6 +22,8 @@ function setInstr(){
          //chooses wave type (sine, square, sawtooth, or triangle)
          wave = num%4;
          //setWaveType(num%4);
+
+         makeOsc();
         
          //console.log(wave, "wave");
       }
