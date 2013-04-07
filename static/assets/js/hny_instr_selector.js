@@ -15,26 +15,31 @@ var minor_scale = [261.63, 293.66, 311.13, 349.23, 392.00, 415.30, 493.88, 523.2
 
 
 //sets specifications for waveform by selecting based on int from 0-7
-function setInstr(num){
-   //call ajax request
-   //num
+function setInstr(){
+   $.ajax({
+      dataType: "json",
+      url: '/count',
+      success: function(res) {
+         var num = res.count;
+         console.log(num);
 
-   if(num%2==0){
-      major = true;
-   }
-
-   if(num<2){
-      setWaveType(0);//sine
-   }
-   else if(num<4){
-      setWaveType(1);//square
-   }
-   else if(num<6){
-      setWaveType(2);//sawtooth
-   }
-   else{
-      setWaveType(3);//triangle
-   }
+         if(num%2==0){
+            major = true;
+         }
+         else if(num<2){
+            setWaveType(0);//sine
+         }
+         else if(num<4){
+            setWaveType(1);//square
+         }
+         else if(num<6){
+            setWaveType(2);//sawtooth
+         }
+         else {
+            setWaveType(3);//triangle
+         }
+      }
+   });
 
 
 

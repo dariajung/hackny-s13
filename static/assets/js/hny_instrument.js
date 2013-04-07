@@ -5,14 +5,16 @@
 var myAudio;
 
 try{
-    myAudio = new webKitAudioContext();
+    myAudio = new webkitAudioContext();
 }
+
 catch(e){
     try{
-	myAudio = new AudioContext();
+      myAudio = new AudioContext();
     }
     catch(e){
-	alert("Unsupported browser.");
+      console.log(e.stack);
+      //alert("Unsupported browser.");
     }
 }
 
@@ -22,7 +24,7 @@ masterVolume.connect(myAudio.destination);
 
 var osc = myAudio.createOscillator();
 var oscg = myAudio.createGainNode();
-var oscf = myAudio.creteBiquadFilter();
+var oscf = myAudio.createBiquadFilter();
 
 osc.type = 0; //default is a sine wave
 osc.connect(oscf);
