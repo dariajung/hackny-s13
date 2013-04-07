@@ -4,54 +4,55 @@ var minor_scale = [261.63, 293.66, 311.13, 349.23, 392.00, 415.30, 493.88, 523.2
 //var oct_scale = [];
 //var wt_scale = [];
 
-97 
-115 
-100 
-102 
-106 
-107 
-108 
-59
-
-
 //sets specifications for waveform by selecting based on int from 0-7
 function setInstr(){
    $.ajax({
       dataType: "json",
       url: '/count',
       success: function(res) {
-         var num = res.count;
-         console.log(num);
+         num = res.count;
+         console.log(num, 'Number');
 
          if(num%2==0){
             major = true;
+            wave = 3;
          }
          else if(num<2){
-            setWaveType(0);//sine
+            major = false;
+            wave = 0;
+            setWaveType(0); //sine
          }
          else if(num<4){
-            setWaveType(1);//square
+            major = false;
+            wave = 1;
+            setWaveType(1); //square
          }
          else if(num<6){
-            setWaveType(2);//sawtooth
+            major = false;
+            wave = 2;
+            setWaveType(2); //sawtooth
          }
          else {
-            setWaveType(3);//triangle
+            major = false;
+            wave = 3;
+            setWaveType(3); //triangle
          }
+         //console.log(wave, "wave");
       }
    });
-
-
-
 }
 
 //func 1 - send key press/note - onkeydown
 function keyDown(e){
+   setInstr();
    code = e.keyCode;
+   console.log(code);
+
    var sel;
 
    if(code == 97){
       freq = major_scale[0];
+      console.log(freq);
    }
    else if(code == 115){
       freq = major_scale[1];
@@ -87,7 +88,7 @@ function keyDown(e){
    else{
       return;
    }
-   play(freq);
+   play(freq, wave);
 }
 
 //func 2 - send key release/stop note - onkeyup

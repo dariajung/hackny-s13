@@ -14,7 +14,7 @@ catch(e){
     }
     catch(e){
       console.log(e.stack);
-      //alert("Unsupported browser.");
+      alert("Unsupported browser.");
     }
 }
 
@@ -32,9 +32,10 @@ oscf.connect(oscg);
 oscg.connect(masterVolume);
 
 //plays a note until stopped or another note is played
-function play(freq){
+function play(freq, wave){
    if (freq != 0 && freq != osc.frequency.value){
-      osc.setPitch(freq);
+      setPitch(freq);
+      setWaveType(wave);
       if (osc.playbackState == 0){
          osc.noteOn(0);
       }
@@ -49,6 +50,7 @@ function stop(){
 
 //can be sine, square, sawtooth, or triangle
 function setWaveType(type) {
+  //console.log(osc.type);
 	osc.type = type;
 }
 
