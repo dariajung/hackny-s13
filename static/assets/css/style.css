@@ -1,0 +1,16 @@
+body {
+	background: url("../imgs/bg.png");
+	position: center;
+	margin-top: 10%;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+  	font-weight: 300;
+}
+
+p {
+	width: 500px;
+}
+
+footer {
+	position: bottom;
+	width: 55%;
+}

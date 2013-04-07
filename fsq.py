@@ -22,7 +22,6 @@ def getJson():
 	print 'This is count'
 	print count
 	return json.dumps({'count': count})
-	#return render_template('count.html')
 #pprint (data)
 
 if __name__ == '__main__':
