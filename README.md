@@ -1,5 +1,5 @@
-hackny-s13
-==========
+foursynth, a hackNY s2013 hack
+===============================
 
 Daria Jung + Rachel Susser
 
