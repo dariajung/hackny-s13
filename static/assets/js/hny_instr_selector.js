@@ -11,6 +11,7 @@ function setInstr(){
       url: '/count',
       success: function(res) {
          num = res.count;
+         //num = 13;
          console.log(num, 'Number');
 
          //chooses scale type
@@ -21,6 +22,7 @@ function setInstr(){
 
          //chooses wave type (sine, square, sawtooth, or triangle)
          wave = num%4;
+         setWaveType(wave);
          //setWaveType(num%4);
         
          //console.log(wave, "wave");

@@ -13,7 +13,7 @@ def index():
 
 @app.route('/count', methods=['GET'])
 def getJson():
-	url = 'https://api.foursquare.com/v2/venues/trending?ll=40.807536,-73.962573&client_id=' + client_id + '&client_secret=' + client_secret
+	url = 'https://api.foursquare.com/v2/venues/trending?ll=31.230393,121.473704&client_id=' + client_id + '&client_secret=' + client_secret
 	f = urlopen(url) 
 	data = json.loads(f.read())
 	f.close()
