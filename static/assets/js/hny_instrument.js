@@ -3,7 +3,6 @@
 //some code adapted from https://github.com/usdivad/midas/blob/master/audio.js by David Su
 
 var myAudio;
-var osc;
 
 try{
     myAudio = new webkitAudioContext();
@@ -19,30 +18,27 @@ catch(e){
     }
 }
 
-
-function makeOsc(){
 var masterVolume = myAudio.createGainNode();
 masterVolume.gain.value=1;
 masterVolume.connect(myAudio.destination);
 
-osc = myAudio.createOscillator();
-oscg = myAudio.createGainNode();
-oscf = myAudio.createBiquadFilter();
+var osc = myAudio.createOscillator();
+//var oscg = myAudio.createGainNode();
+//var oscf = myAudio.createBiquadFilter();
 
 osc.type = 0; //default is a sine wave
-osc.connect(oscf);
-oscf.connect(oscg);
-oscg.connect(masterVolume);
-}
+//osc.connect(oscf);
+osc.connect(masterVolume);
+//oscf.connect(oscg);
+//oscg.connect(masterVolume);
 
 //plays a note until stopped or another note is played
 function play(freq, wave){
+  masterVolume.gain.value=1;
+  //masterVolume.connect(myAudio.destination);
    if (freq != 0 && freq != osc.frequency.value){
       setPitch(freq);
       setWaveType(wave);
-
-
-
       if (osc.playbackState == 0){
          osc.noteOn(0);
       }
@@ -51,19 +47,20 @@ function play(freq, wave){
 
 //stops the oscillator
 function stop(){
-   //osc.noteOff(osc, 0);
-   osc.disconnect();
-   makeOsc();
+   //osc.noteOff(0);
+   //osc.disconnect();
+   //osc = myAudio.createOscillator();
+   //masterVolume.disconnect();
+   masterVolume.gain.value=0;
 }
 
 //can be sine, square, sawtooth, or triangle
 function setWaveType(type) {
   //console.log(osc.type);
-	osc.type = type;
+  osc.type = type;
 }
 
 //sets frequency in Hz
 function setPitch(hz) {
-	osc.frequency.value = hz;
+  osc.frequency.value = hz;
 }
-

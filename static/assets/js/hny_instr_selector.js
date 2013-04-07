@@ -22,8 +22,6 @@ function setInstr(){
          //chooses wave type (sine, square, sawtooth, or triangle)
          wave = num%4;
          //setWaveType(num%4);
-
-         makeOsc();
         
          //console.log(wave, "wave");
       }
@@ -41,9 +39,12 @@ function keyDown(e){
    if(code == 97){
       freq = major_scale[0];
       console.log(freq);
+      play(freq, wave);
+
    }
    else if(code == 115){
       freq = major_scale[1];
+      play(freq, wave);
    }
    else if(code == 100){
       if(major){
@@ -52,12 +53,15 @@ function keyDown(e){
       else{
          freq = minor_scale[2];
       }
+      play(freq, wave);
    }
    else if(code == 102){
       freq = major_scale[3];
+      play(freq, wave);
    }
    else if(code == 106){
       freq = major_scale[4];
+      play(freq, wave);
    }
    else if(code == 107){
       if(major){
@@ -66,20 +70,27 @@ function keyDown(e){
       else{
          freq = minor_scale[5];
       }
+      play(freq, wave);
    }
    else if(code ==108){
       freq = major_scale[6];
+      play(freq, wave);
    }
    else if(code == 59){
       freq = major_scale[7];
+      play(freq, wave);
    }
+   else if(code == 32){
+      stop();
+   }
+
    else{
       return;
-   }
-   play(freq, wave);
+   }  
 }
 
 //func 2 - send key release/stop note - onkeyup
 function keyUp(){
+   console.log('keyup');
    stop();
 }
